@@ -18,7 +18,7 @@ const configs = {
   , port: 4000
   }
 };
-const config = configs[__ENV__];
+const config = configs[__ENV__] || {};
 
 let publicPath = `${config.host}:${config.port}`;
 if(config.port === 443){

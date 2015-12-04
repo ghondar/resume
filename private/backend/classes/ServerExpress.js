@@ -3,17 +3,26 @@ import helmet from 'helmet';
 import express from 'express';
 import hogan from 'hogan-express';
 import compression from 'compression';
-import config from './private/config/server';
-import * as envs from './private/config/envs';
-import packageJson from './package.json';
+import Server from './Server';
+import config from '../../config/express-server';
+import * as envs from '../../config/envs';
+import packageJson from '../../../package.json';
 
-class Express extends Server{
-  constructor(){
+export default class ServerExpress extends Server{
+  constructor(options){
+    options = Object.assign({
+      pidFile: './.pids/express.pid'
+    }, options);
+    super(options);
+  }
+
+  run(){
+    super.run();
+
     const app = express();
     const router = express.Router();
-    const pidPath = './.pids/express.pid';
 
-    let started;
+    let started = new Date();
 
     app.set('views', './private/views');
     app.set('view engine', 'html');
@@ -28,7 +37,6 @@ class Express extends Server{
       , maxAge: 2592000000
       , includeSubDomains: true
       }));
-
       app.use(helmet.contentSecurityPolicy({
         defaultSrc: [`'self'`]
       , fontSrc: [`'self'`]
@@ -70,7 +78,7 @@ class Express extends Server{
     app.listen(config.port, (e) => {
       if(e){ throw new Error(e); }
       started = new Date();
-      fs.writeFileSync(pidPath, process.pid.toString());
+      fs.writeFileSync(this.get('pidFile'), process.pid.toString());
       console.log(`Express is listening at ${config.port}`);
     });
   }
