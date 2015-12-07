@@ -1,2 +1,2 @@
-import Hello from './components/hello.jsx';
-import World from './components/world.jsx';
+import Hello from './frontend/components/hello.jsx';
+import World from './frontend/components/world.jsx';

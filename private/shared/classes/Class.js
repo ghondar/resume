@@ -23,6 +23,6 @@ export default class Class{
     return this[Symbol.for(`${this.constructor.name}.${property}`)];
   }
   set(property, v){
-    return this[Symbol.for(`${this.constructor.name}.${property}`)] = v;
+    return !!(this[Symbol.for(`${this.constructor.name}.${property}`)] = v);
   }
 }

@@ -2,7 +2,8 @@ import webpack from 'webpack';
 import { __ENV__ } from './envs';
 
 const configs = {
-  dev: {
+  stop: {}
+, dev: {
     host: '127.0.0.1'
   , port: 4000
   }
@@ -18,7 +19,7 @@ const configs = {
   , port: 4000
   }
 };
-const config = configs[__ENV__] || {};
+const config = configs[__ENV__];
 
 let publicPath = `${config.host}:${config.port}`;
 if(config.port === 443){

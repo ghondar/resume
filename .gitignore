@@ -1,4 +1,4 @@
 node_modules/
 public/
-.pids/
 .logs/
+.pid
